@@ -13,6 +13,6 @@ export default {
 			.then(data => {
 				commit('SET_CURRENT_MENU', data);
 			})
-			.catch(console.error());
+			.catch(console.error);
 	}
 };
