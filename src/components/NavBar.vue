@@ -56,7 +56,8 @@ export default {
 			postTest(data);
 		},
 		onSelectMenu({ id }) {
-			this.$router.push(`/${id}`);
+			const path = `/${id}`;
+			if (this.$route.path !== path) this.$router.push(path);
 			this.getMenuById(id);
 		},
 		onClickMenu(menuId) {

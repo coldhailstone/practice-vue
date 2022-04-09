@@ -6,13 +6,21 @@ export default {
 			.then(data => {
 				commit('SET_MENU_LIST', data.menuList);
 			})
-			.catch(console.error);
+			.catch(() => {
+				commit('SET_MENU_LIST', []);
+			});
 	},
-	FETCH_MENU({ commit }, menuId) {
+	FETCH_MENU({ commit, getters }, menuId) {
 		fetchMenu(menuId)
 			.then(data => {
 				commit('SET_CURRENT_MENU', data);
 			})
-			.catch(console.error);
+			.catch(e => {
+				commit('SET_CURRENT_MENU', {
+					...getters.fetchedCurrentMenu,
+					title: 'Error Page',
+					content: e
+				});
+			});
 	}
 };

@@ -35,7 +35,7 @@ class Axios {
 				if (xhr.status === 200 || xhr.status === 201) {
 					resolve(JSON.parse(xhr.responseText));
 				} else {
-					reject(xhr.responseText);
+					reject(`${xhr.status} ${xhr.statusText}`);
 				}
 			};
 			xhr.open(
