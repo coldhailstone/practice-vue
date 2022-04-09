@@ -33,11 +33,6 @@ export default {
 	computed: {
 		...mapGetters(['fetchedMenuList', 'fetchedCurrentMenu'])
 	},
-	data() {
-		return {
-			selectOptions: []
-		};
-	},
 	beforeCreate() {
 		this.$store.dispatch('FETCH_MENU_LIST');
 	},
