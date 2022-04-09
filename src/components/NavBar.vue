@@ -77,4 +77,7 @@ export default {
 	background: yellow;
 	border: 1px solid black;
 }
+.vs__clear {
+	display: none;
+}
 </style>
