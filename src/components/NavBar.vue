@@ -25,6 +25,7 @@
 import { mapGetters } from 'vuex';
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
+// import { getTest, postTest } from '@/api';
 
 export default {
 	components: {
@@ -34,6 +35,15 @@ export default {
 		...mapGetters(['fetchedMenuList', 'fetchedCurrentMenu'])
 	},
 	beforeCreate() {
+		// test
+		// const data = {
+		// 	key: 'testKey',
+		// 	value: 'testValue'
+		// };
+		// getTest(data);
+		// postTest(data);
+	},
+	created() {
 		this.$store.dispatch('FETCH_MENU_LIST');
 	},
 	mounted() {

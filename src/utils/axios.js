@@ -14,7 +14,13 @@ class Axios {
 		return instance;
 	}
 
-	get(url) {
+	get(url, config) {
+		if (config && config.params) {
+			const queryString = Object.keys(config.params)
+				.map(key => `${key}=${config.params[key]}`)
+				.join('&');
+			url += `?${queryString}`;
+		}
 		return this._fetch('GET', url);
 	}
 
