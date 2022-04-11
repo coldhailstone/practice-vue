@@ -42,7 +42,7 @@ class Axios {
 				method,
 				this.config.baseUrl ? `${this.config.baseUrl}${url}` : url
 			);
-			xhr.send(data ? JSON.stringify(data) : null);
+			xhr.send(data ? JSON.stringify(data) : {});
 		});
 	}
 }

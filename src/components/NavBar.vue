@@ -10,9 +10,9 @@
 		</div>
 		<div
 			v-for="menu of fetchedMenuList"
-			:ref="menu.id"
 			:key="menu.id"
 			class="nav-link"
+			:class="fetchedCurrentMenu.id === menu.id ? 'select' : null"
 		>
 			<router-link :to="`/${menu.id}`" @click.native="onClickMenu(menu.id)">
 				<span>{{ menu.title }}</span>
@@ -25,7 +25,6 @@
 import { mapGetters } from 'vuex';
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
-import { getTest, postTest } from '@/api';
 
 export default {
 	components: {
@@ -34,26 +33,20 @@ export default {
 	computed: {
 		...mapGetters(['fetchedMenuList', 'fetchedCurrentMenu'])
 	},
-	beforeCreate() {
-		// TODO: test
-		// this.apiTest();
-	},
 	created() {
 		this.$store.dispatch('FETCH_MENU_LIST');
 	},
 	mounted() {
-		setTimeout(() => {
-			this.getMenuById(this.fetchedMenuList[0].id);
-		}, 100);
+		this.loadFirstMenu();
 	},
 	methods: {
-		apiTest() {
-			const data = {
-				key: 'testKey',
-				value: 'testValue'
-			};
-			getTest(data);
-			postTest(data);
+		loadFirstMenu() {
+			const intervalMenuIsLoaded = setInterval(() => {
+				if (this.fetchedMenuList[0]) {
+					this.getMenuById(this.fetchedMenuList[0].id);
+					clearInterval(intervalMenuIsLoaded);
+				}
+			}, 100);
 		},
 		onSelectMenu({ id }) {
 			const path = `/${id}`;
@@ -65,14 +58,6 @@ export default {
 		},
 		getMenuById(menuId) {
 			this.$store.dispatch('FETCH_MENU', menuId);
-			this.toggleNavigationStyle(menuId);
-		},
-		toggleNavigationStyle(menuId) {
-			document.querySelectorAll('.nav-link').forEach(el => {
-				el.classList.remove('select');
-			});
-			const navEl = this.$refs[menuId][0];
-			navEl.classList.add('select');
 		}
 	}
 };
