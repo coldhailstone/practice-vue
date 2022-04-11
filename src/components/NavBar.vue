@@ -14,7 +14,7 @@
 			class="nav-link"
 			:class="fetchedCurrentMenu.id === menu.id ? 'select' : null"
 		>
-			<router-link :to="`/${menu.id}`" @click.native="onClickMenu(menu.id)">
+			<router-link :to="`/${menu.id}`">
 				<span>{{ menu.title }}</span>
 			</router-link>
 		</div>
@@ -36,28 +36,10 @@ export default {
 	created() {
 		this.$store.dispatch('FETCH_MENU_LIST');
 	},
-	mounted() {
-		this.loadFirstMenu();
-	},
 	methods: {
-		loadFirstMenu() {
-			const intervalMenuIsLoaded = setInterval(() => {
-				if (this.fetchedMenuList[0]) {
-					this.getMenuById(this.fetchedMenuList[0].id);
-					clearInterval(intervalMenuIsLoaded);
-				}
-			}, 100);
-		},
 		onSelectMenu({ id }) {
 			const path = `/${id}`;
 			if (this.$route.path !== path) this.$router.push(path);
-			this.getMenuById(id);
-		},
-		onClickMenu(menuId) {
-			this.getMenuById(menuId);
-		},
-		getMenuById(menuId) {
-			this.$store.dispatch('FETCH_MENU', menuId);
 		}
 	}
 };

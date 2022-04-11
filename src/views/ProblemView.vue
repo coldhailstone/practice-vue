@@ -11,6 +11,18 @@ import { mapGetters } from 'vuex';
 export default {
 	computed: {
 		...mapGetters(['fetchedCurrentMenu'])
+	},
+	beforeRouteUpdate(to, _, next) {
+		this.getMenuById(to.params.id);
+		next();
+	},
+	mounted() {
+		this.getMenuById(this.$route.params.id);
+	},
+	methods: {
+		getMenuById(menuId) {
+			this.$store.dispatch('FETCH_MENU', menuId);
+		}
 	}
 };
 </script>
