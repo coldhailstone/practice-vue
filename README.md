@@ -1,5 +1,3 @@
-# smartjack-test
-
 ## Project setup
 ```
 npm install
